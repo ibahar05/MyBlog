@@ -42,7 +42,7 @@ class TestPosApi:
             "title": "test",
             "content": "test content",
             "status": True,
-            "published_data": timezone.now(),
+            "published_date": timezone.now(),
         }
         user = common_user
         api_client.force_authenticate(user=user)
