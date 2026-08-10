@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser, PermissionsMixin)
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -15,28 +18,28 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
-    
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_staff',True)
-        extra_fields.setdefault('is_superuser',True)
-        extra_fields.setdefault('is_active',True)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError(_('superuser must have is_staff=True.'))
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError(_('superuser must have is_superuser=True.')) 
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
+        extra_fields.setdefault("is_verified", True)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError(_("superuser must have is_staff=True."))
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError(_("superuser must have is_superuser=True."))
 
         return self.create_user(email, password, **extra_fields)
 
 
-
 class User(AbstractBaseUser, PermissionsMixin):
-    email=models.EmailField(max_length=225, unique=True)
+    email = models.EmailField(max_length=225, unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    # is_verified = models.BooleanField(default=False)
-    
+    is_verified = models.BooleanField(default=False)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
@@ -48,8 +51,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=220)
     last_name = models.CharField(max_length=225)
     image = models.ImageField(blank=True, null=True)
@@ -57,11 +61,11 @@ class Profile(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
-
     def __str__(self):
-       return self.user.email
+        return self.user.email
 
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-    Profile.objects.create(user=instance)
+    if created:
+        Profile.objects.get_or_create(user=instance)
