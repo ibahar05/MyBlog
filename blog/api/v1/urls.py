@@ -17,3 +17,6 @@ urlpatterns = router.urls
 #     path("post/<int:pk>/",views.PostViewSet.as_view({'get':'retrieve','put':'update','patch':'partial_update','delete':'destroy'}))
 
 # ]
+urlpatterns += [
+    path("weather/", views.weather_api, name="weather"),
+]

@@ -47,11 +47,13 @@ INSTALLED_APPS = [
     # "rest_framework_simplejwt.token_blacklist",
     "mail_templated",
     "djoser",
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -144,7 +146,7 @@ REST_FRAMEWORK = {
 # email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = "localhost"
+EMAIL_HOST = "smtp4dev"
 EMAIL_PORT = 25
 
 EMAIL_HOST_USER = ""
@@ -172,3 +174,16 @@ SIMPLE_JWT = {
 #         }
 #     }
 # }
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+# celery configs
+CELERY_BROKER_URL = "redis://redis:6379/1"
+
+# caching configs
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/2",
+    }
+}

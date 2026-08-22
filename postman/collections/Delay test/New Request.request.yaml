@@ -1,0 +1,5 @@
+$kind: http-request
+url: /test/delay/5
+method: GET
+examples: .resources/New Request.resources/examples
+order: 1787330628206

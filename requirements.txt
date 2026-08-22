@@ -1,24 +1,29 @@
+Django==5.2.1
+djangorestframework==3.17.1
+django-filter==25.2
+djangorestframework_simplejwt==5.5.1
+djoser
+drf-yasg==1.21.15
+django-cors-headers
+django-mail-templated==2.6.5
+
+Pillow==12.2.0
+PyJWT==2.13.0
 asgiref==3.8.1
 attrs==26.1.0
-Django==5.2.1
-django-filter==25.2
-django-mail-templated==2.6.5
-djangorestframework==3.17.1
-djangorestframework_simplejwt==5.5.1
-drf-yasg==1.21.15
-pillow==12.2.0
-PyJWT==2.13.0
-swagger-spec-validator==3.0.4
 typing_extensions==4.15.0
-djoser
-# reformatting
+swagger-spec-validator==3.0.4
+
+# Testing
+pytest
+pytest-django
+Faker
+locust
+
+# Code quality
 black
 flake8
 
-pytest
-pytest-django
-
-flake8
-black 
-
-Faker
+# Background Process and chach 
+celery
+redis

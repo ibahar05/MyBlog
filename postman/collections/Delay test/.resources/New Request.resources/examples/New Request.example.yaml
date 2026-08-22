@@ -1,0 +1,11 @@
+$kind: http-example
+request:
+  url: /test/delay/5
+  method: GET
+response:
+  statusCode: 200
+  statusText: ""
+  body:
+    type: json
+    content: '{"message": "this is a test"}'
+order: 1787330676462

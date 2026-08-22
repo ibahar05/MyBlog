@@ -205,3 +205,22 @@ class CategoryModelViewSet(viewsets.ModelViewSet):
     premission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = CategorySerializer
     queryset = Category.objects.filter()
+
+#---------------------------------------------------------------
+
+from django.core.cache import cache
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+@api_view(["GET"])
+def weather_api(request):
+    weather = cache.get("weather_karaj")
+
+    if weather is None:
+        return Response(
+            {"message": "Weather data is not available yet."},
+            status=503,
+        )
+
+    return Response(weather)

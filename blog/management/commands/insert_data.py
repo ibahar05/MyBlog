@@ -42,8 +42,6 @@ class Command(BaseCommand):
                 status=random.choice([True,False]),
                 category=Category.objects.get(name=random.choice(Category_list)),
                 published_date=timezone.now(),
-                
-
             )
 
 
