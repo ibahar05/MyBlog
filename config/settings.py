@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     # "rest_framework_simplejwt.token_blacklist",
     "mail_templated",
     "djoser",
-    'corsheaders'
+    "corsheaders",
 ]
 
 MIDDLEWARE = [

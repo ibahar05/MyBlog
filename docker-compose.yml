@@ -34,6 +34,12 @@ services:
       - redis
       - backend
 
+  black:
+    build: .
+    command: black .
+    volumes:
+      - .:/app
+
   smtp4dev:
     container_name: smtp4dev
     image: rnwood/smtp4dev:v3

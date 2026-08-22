@@ -206,7 +206,8 @@ class CategoryModelViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.filter()
 
-#---------------------------------------------------------------
+
+# ---------------------------------------------------------------
 
 from django.core.cache import cache
 from rest_framework.decorators import api_view

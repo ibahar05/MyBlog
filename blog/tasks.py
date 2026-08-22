@@ -2,9 +2,12 @@ from celery import shared_task
 import requests
 from django.core.cache import cache
 
+
 @shared_task
 def get_weather():
-    response = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Karaj&appid=12efd6b12c04995d9fbf64c8f91e60f4&units=metric")
+    response = requests.get(
+        "https://api.openweathermap.org/data/2.5/weather?q=Karaj&appid=12efd6b12c04995d9fbf64c8f91e60f4&units=metric"
+    )
     data = response.json()
 
     weather_data = {
